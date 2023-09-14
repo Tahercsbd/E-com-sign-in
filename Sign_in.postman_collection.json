@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "f333a490-8fa0-4760-a0da-0013fc4787b9",
+		"name": "Sign in",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26244058"
+	},
+	"item": [
+		{
+			"name": "Positive",
+			"item": [
+				{
+					"name": "As a buyer, I want to sign in with my user name and password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//declaring variable and storing token\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"buyer_token\", jsonData.token);\r",
+									"\r",
+									"//status code validation\r",
+									"pm.test(\"Buyer logged in successfully\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//response time validation\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});\r",
+									"\r",
+									"//response status name validation\r",
+									"pm.test(\"Status code name has OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//headers validation\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"    pm.response.to.have.header(\"X-Powered-By\");\r",
+									"});\r",
+									"var jsonObject = xml2Json(responseBody);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"Dhaka923348\",\r\n  \"email\": \"gekawabe@afia.pro\"\r\n  \r\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}user/signin",
+							"host": [
+								"{{baseURL}}user"
+							],
+							"path": [
+								"signin"
+							]
+						},
+						"description": "Date: 9/4/2023  \nProject Name: Single Owner eCommerce  \nTested By:Taher  \nReviewed By: Protik  \nSE Name: Shimul  \nObjective: As a buyer , I want to sign in with my user name and password.  \nExpected Result: Buyer should get sign in successfully.  \nActual Result: Buyer can get sign in  \nTest Status: Passed  \nTest Data:  \nemail:tgekawabe@afia.pro  \npassword:Dhaka923348"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Nagetive",
+			"item": [
+				{
+					"name": "As a buyer, I want to sign in without my password field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"\",\r\n  \"email\": \"gekawabe@afia.pro\"\r\n  \r\n}"
+						},
+						"url": {
+							"raw": "https://staging-be-ecom.techserve4u.com/api/user/signin",
+							"protocol": "https",
+							"host": [
+								"staging-be-ecom",
+								"techserve4u",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "As a buyer, I can not sign in without my email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"Dhaka923348\",\r\n  \"email\": \"\"\r\n  \r\n}"
+						},
+						"url": {
+							"raw": "https://staging-be-ecom.techserve4u.com/api/user/signin",
+							"protocol": "https",
+							"host": [
+								"staging-be-ecom",
+								"techserve4u",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "As a buyer, I can not sign in with wrong password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"Dhaka923349\",\r\n  \"email\": \"gekawabe@afia.pro\"\r\n  \r\n}"
+						},
+						"url": {
+							"raw": "https://staging-be-ecom.techserve4u.com/api/user/signin",
+							"protocol": "https",
+							"host": [
+								"staging-be-ecom",
+								"techserve4u",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
